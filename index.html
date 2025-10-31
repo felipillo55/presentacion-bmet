@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Técnico Biomédico (BMET) - Presentación</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #667eea;
+            --primary-dark: #764ba2;
+            --success: #11998e;
+            --info: #4facfe;
+            --warning: #fa709a;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container-presentation {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Slides */
+        .slide {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 80px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            min-height: 600px;
+        }
+        
+        .slide.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Header del slide */
+        .slide-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: -40px -40px 30px -40px;
+        }
+        
+        .slide-header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+        
+        /* Tarjetas */
+        .card-interactive {
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .card-interactive:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Badges */
+        .badge-custom {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 5px;
+            display: inline-block;
+        }
+        
+        /* Navegación */
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover:not(:disabled) {
+            transform: scale(1.1);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            color: var(--primary);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+        }
+        
+        .progress-bar-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+        
+        /* Contenido expandible */
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .expandable-content.show {
+            max-height: 2000px;
+        }
+        
+        .btn-expand {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+        
+        .btn-expand:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Splash screen */
+        .splash-screen {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .splash-icon {
+            font-size: 8rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 25px;
+            }
+            .slide-header {
+                margin: -25px -25px 20px -25px;
+                padding: 20px;
+            }
+            .slide-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de progreso -->
+    <div class="progress-bar-top" id="progressBar"></div>
+    
+    <!-- Contador -->
+    <div class="slide-counter">
+        <i class="bi bi-file-slides me-2"></i>
+        <span id="currentSlide">1</span> / <span id="totalSlides">10</span>
+    </div>
+
+    <div class="container-presentation">
+        
+        <!-- Slide 1: Portada -->
+        <div class="slide active">
+            <div class="splash-screen">
+                <i class="bi bi-heart-pulse-fill splash-icon"></i>
+                <h1 class="display-2 fw-bold mb-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    Técnico Biomédico
+                </h1>
+                <h2 class="h3 text-muted mb-4">Biomedical Equipment Technician (BMET)</h2>
+                <p class="lead text-secondary fs-4">
+                    Profesionales esenciales en la gestión de tecnología médica
+                </p>
+                <div class="mt-5">
+                    <span class="badge bg-info me-2"><i class="bi bi-hospital me-2"></i>Atención Médica</span>
+                    <span class="badge bg-primary me-2"><i class="bi bi-tools me-2"></i>Mantenimiento</span>
+                    <span class="badge bg-success me-2"><i class="bi bi-shield-check me-2"></i>Seguridad</span>
+                    <span class="badge bg-warning me-2"><i class="bi bi-graph-up me-2"></i>Tecnología</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Proceso de Reparación -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1><i class="bi bi-wrench-adjustable me-3"></i>Proceso de Reparación</h1>
+                <p class="mb-0">Cuatro pasos fundamentales para restablecer el funcionamiento</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card-interactive">
+                        <div class="card-icon">
+                            <i class="bi bi-search"></i>
+                        </div>
+                        <h4 class="text-primary">1. Diagnosticar</h4>
+                        <p class="text-muted">Paso más complejo y susceptible a errores</p>
+                        <button class="btn-expand" onclick="toggleExpand(this)">Ver más</button>
+                        <div class="expandable-content">
+                            <ul class="mt-3">
+                                <li>Requiere conocimiento profundo del equipo</li>
+                                <li>Nivel más complejo de pensamiento</li>
+                                <li>Análisis del funcionamiento correcto</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card-interactive">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <h4 class="text-success">2. Localizar</h4>
+                        <p class="text-muted">Delimitar el problema a un área específica</p>
+                        <button class="btn-expand" onclick="toggleExpand(this)">Ver más</button>
+                        <div class="expandable-content">
+                            <ul class="mt-3">
+                                <li>Reducir el problema a una sección</li>
+                                <li>Identificar área particular</li>
+                                <li>Uso de equipos de prueba</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card-interactive">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                            <i class="bi bi-bullseye"></i>
+                        </div>
+                        <h4 class="text-info">3. Aislar</h4>
+                        <p class="text-muted">Identificar circuito o componente exacto</p>
+                        <button class="btn-expand" onclick="toggleExpand(this)">Ver más</button>
+                        <div class="expandable-content">
+                            <ul class="mt-3">
+                                <li>Localizar componente específico</li>
+                                <li>Realizar mediciones precisas</li>
+                                <li>Aplicación de análisis técnico</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card-interactive">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                        <h4 class="text-warning">4. Determinar</h4>
+                        <p class="text-muted">Sustituir y verificar funcionamiento</p>
+                        <button class="btn-expand" onclick="toggleExpand(this)">Ver más</button>
+                        <div class="expandable-content">
+                            <ul class="mt-3">
+                                <li>Sustitución del componente defectuoso</li>
+                                <li>Verificación completa del sistema</li>
+                                <li>Pruebas de funcionamiento</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Calibración y Mantenimiento -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1><i class="bi bi-sliders me-3"></i>Calibración y Mantenimiento</h1>
+                <p class="mb-0">Garantizando el correcto funcionamiento de equipos</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="card-icon">
+                                <i class="bi bi-clipboard-check"></i>
+                            </div>
+                            <h3 class="text-primary">Calibración</h3>
+                            <p>Comparación con un estándar para garantizar funcionamiento preciso según parámetros preestablecidos.</p>
+                            
+                            <h5 class="mt-4">Conceptos clave:</h5>
+                            <div class="alert alert-info">
+                                <strong>Estándar:</strong> Referencia establecida para determinar valores
+                            </div>
+                            <div class="alert alert-success">
+                                <strong>Confiabilidad:</strong> Compatibilidad entre medida y valor real
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                                <i class="bi bi-calendar-check"></i>
+                            </div>
+                            <h3 class="text-success">Mantenimiento Preventivo</h3>
+                            <p>Revisión estructurada, periódica y regulada para garantizar óptimas condiciones.</p>
+                            
+                            <h5 class="mt-4">Características:</h5>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge-custom">Estructurado</span>
+                                <span class="badge-custom">Periódico</span>
+                                <span class="badge-custom">Documentado</span>
+                                <span class="badge-custom">Regulado</span>
+                            </div>
+                            
+                            <div class="alert alert-warning mt-3">
+                                <i class="bi bi-exclamation-triangle me-2"></i>
+                                <strong>Importante:</strong> Requerido en acreditaciones hospitalarias
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Equipos de Prueba -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1><i class="bi bi-tools me-3"></i>Equipos de Prueba</h1>
+                <p class="mb-0">Instrumentos esenciales para el trabajo del BMET</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card text-center h-100 border-0 shadow">
+                        <div class="card-body">
+                            <i class="bi bi-speedometer2" style="font-size: 4rem; color: #667eea;"></i>
+                            <h4 class="mt-3">Multímetros</h4>
+                            <p class="text-muted">Medición de parámetros eléctricos</p>
+                            <button class="btn-expand" onclick="toggleExpand(this)">Detalles</button>
+                            <div class="expandable-content">
+                                <ul class="text-start mt-3 small">
+                                    <li>Voltaje</li>
+                                    <li>Corriente</li>
+                                    <li>Resistencia</li>
+                                    <li>Continuidad</li>
+                                    <li>Capacitancia</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card text-center h-100 border-0 shadow">
+                        <div class="card-body">
+                            <i class="bi bi-graph-up" style="font-size: 4rem; color: #11998e;"></i>
+                            <h4 class="mt-3">Osciloscopios</h4>
+                            <p class="text-muted">Visualización de señales</p>
+                            <button class="btn-expand" onclick="toggleExpand(this)">Detalles</button>
+                            <div class="expandable-content">
+                                <ul class="text-start mt-3 small">
+                                    <li>Cambios de voltaje</li>
+                                    <li>Amplitud</li>
+                                    <li>Periodo</li>
+                                    <li>Frecuencia</li>
+                                    <li>Fase</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card text-center h-100 border-0 shadow">
+                        <div class="card-body">
+                            <i class="bi bi-broadcast" style="font-size: 4rem; color: #4facfe;"></i>
+                            <h4 class="mt-3">Generadores</h4>
+                            <p class="text-muted">Producción de señales</p>
+                            <button class="btn-expand" onclick="toggleExpand(this)">Detalles</button>
+                            <div class="expandable-content">
+                                <ul class="text-start mt-3 small">
+                                    <li>Ondas senoidales</li>
+                                    <li>Ondas cuadradas</li>
+                                    <li>Ondas triangulares</li>
+                                    <li>Parámetros variables</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card text-center h-100 border-0 shadow">
+                        <div class="card-body">
+                            <i class="bi bi-heart-pulse" style="font-size: 4rem; color: #fa709a;"></i>
+                            <h4 class="mt-3">Simuladores</h4>
+                            <p class="text-muted">Señales médicas específicas</p>
+                            <button class="btn-expand" onclick="toggleExpand(this)">Detalles</button>
+                            <div class="expandable-content">
+                                <ul class="text-start mt-3 small">
+                                    <li>Actividad cardíaca</li>
+                                    <li>Presión sanguínea</li>
+                                    <li>Señales fisiológicas</li>
+                                    <li>Parámetros vitales</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alert alert-warning mt-4">
+                <i class="bi bi-info-circle me-2"></i>
+                <strong>Nota:</strong> Una <strong>señal</strong> es cualquier cantidad que varía con el tiempo y conlleva información sobre un fenómeno.
+            </div>
+        </div>
+
+        <!-- Slide 5: Tipos de Manuales -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1><i class="bi bi-book me-3"></i>Tipos de Manuales</h1>
+                <p class="mb-0">Documentación esencial para el trabajo técnico</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card border-primary h-100">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0"><i class="bi bi-book me-2"></i>Manual del Usuario</h4>
+                        </div>
+                        <div class="card-body">
+                            <p>Información general de funcionamiento del equipo</p>
+                            <h5 class="text-primary">Contenido:</h5>
+                            <ul>
+                                <li>Funcionamiento general</li>
+                                <li>Especificaciones técnicas</li>
+                                <li>Diagramas generales</li>
+                                <li>Teoría de funcionamiento</li>
+                                <li>Procedimientos de calibración</li>
+                            </ul>
+                            <div class="alert alert-info">
+                                <strong>Especificación:</strong> Descripción o parámetro de funcionamiento
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card border-success h-100">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="mb-0"><i class="bi bi-tools me-2"></i>Manual Técnico</h4>
+                        </div>
+                        <div class="card-body">
+                            <p>Información especializada para técnicos</p>
+                            <h5 class="text-success">Contenido:</h5>
+                            <ul>
+                                <li>Información técnica específica</li>
+                                <li>Funcionamiento detallado</li>
+                                <li>Procesos de ajuste/calibración</li>
+                                <li>Procedimientos de reparación (troubleshooting)</li>
+                                <li>Diagramas técnicos completos</li>
+                            </ul>
+                            <div class="alert alert-success">
+                                Nivel avanzado para técnicos especializados
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Tipos de Diagramas -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1><i class="bi bi-diagram-3 me-3"></i>Tipos de Diagramas</h1>
+                <p class="mb-0">Representaciones visuales para comprender los equipos</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card-interactive text-center">
+                        <i class="bi bi-bounding-box-circles" style="font-size: 4rem; color: #667eea;"></i>
+                        <h4 class="text-primary mt-3">Diagrama en Bloque</h4>
+                        <p>Funcionamiento general mediante rectángulos conectados</p>
+                        <button class="btn-expand" onclick="toggleExpand(this)">Ver más</button>
+                        <div class="expandable-content">
+                            <div class="text-start mt-3">
+                                <strong>Características:</strong>
+                                <ul class="small">
+                                    <li>Rectángulos con funciones</li>
+                                    <li>Conexiones con líneas/flechas</li>
+                                    <li>Vista general del sistema</li>
+                                </ul>
+                                <strong>Uso:</strong>
+                                <ul class="small">
+                                    <li>Idea general del funcionamiento</li>
+                                    <li>Relación estructural</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card-interactive text-center">
+                        <i class="bi bi-image" style="font-size: 4rem; color: #11998e;"></i>
+                        <h4 class="text-success mt-3">Diagrama Pictórico</h4>
+                        <p>Ilustración fiel de componentes físicos</p>
+                        <button class="btn-expand" onclick="toggleExpand(this)">Ver más</button>
+                        <div class="expandable-content">
+                            <div class="text-start mt-3">
+                                <div class="alert alert-info small">
+                                    <strong>Códigos:</strong> C (capacitor), R (resistencia), Q (transistor), U (CI)
+                                </div>
+                                <p class="small"><strong>Ventaja:</strong> Localización física de componentes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card-interactive text-center">
+                        <i class="bi bi-diagram-2" style="font-size: 4rem; color: #4facfe;"></i>
+                        <h4 class="text-info mt-3">Diagrama Esquemático</h4>
+                        <p>Conexiones con símbolos estándar</p>
+                        <button class="btn-expand" onclick="toggleExpand(this)">Ver más</button>
+                        <div class="expandable-content">
+                            <div class="text-start mt-3">
+                                <strong>Incluye:</strong>
+                                <ul class="small">
+                                    <li>Símbolos estándar</li>
+                                    <li>Nomenclatura</li>
+                                    <li>Valores de componentes</li>
+                                    <li>Conexiones detalladas</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Niveles BMET -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1><i class="bi bi-bar-chart-steps me-3"></i>Niveles de Carrera BMET</h1>
+                <p class="mb-0">Progresión profesional del técnico biomédico</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card border-0 shadow h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="card-icon me-3">I</div>
+                                <div>
+                                    <h4 class="mb-0 text-primary">BMET I</h4>
+                                    <small class="text-muted">Nivel Inicial</small>
+                                </div>
+                            </div>
+                            <p>Técnico junior bajo supervisión cercana</p>
+                            <h6 class="text-primary">Responsabilidades:</h6>
+                            <ul class="small">
+                                <li>Mantenimiento preventivo</li>
+                                <li>Reparaciones básicas</li>
+                                <li>Pruebas de seguridad</li>
+                                <li>Registro de datos</li>
+                            </ul>
+                            <div class="row mt-3">
+                                <div class="col-6 text-center">
+                                    <div class="badge bg-primary p-3">
+                                        <div style="font-size: 1.5rem;">&lt; 4</div>
+                                        <small>años</small>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <div class="badge bg-secondary p-3">
+                                        <div><i class="bi bi-award" style="font-size: 1.5rem;"></i></div>
+                                        <small>No certificado</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card border-0 shadow h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="card-icon me-3" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">II</div>
+                                <div>
+                                    <h4 class="mb-0 text-success">BMET II</h4>
+                                    <small class="text-muted">Nivel Intermedio</small>
+                                </div>
+                            </div>
+                            <p>Técnico con experiencia y autonomía</p>
+                            <h6 class="text-success">Responsabilidades:</h6>
+                            <ul class="small">
+                                <li>Trabajo independiente</li>
+                                <li>Interpretación de esquemas</li>
+                                <li>Mantenimiento avanzado</li>
+                                <li>Coordinación de reparaciones</li>
+                                <li>Redacción de informes</li>
+                            </ul>
+                            <div class="row mt-3">
+                                <div class="col-6 text-center">
+                                    <div class="badge bg-success p-3">
+                                        <div style="font-size: 1.5rem;">~8</div>
+                                        <small>años</small>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <div class="badge bg-info p-3">
+                                        <div><i class="bi bi-mortarboard" style="font-size: 1.5rem;"></i></div>
+                                        <small>Título AS+</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: BMET III y Especialistas -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1><i class="bi bi-star-fill me-3"></i>Niveles Avanzados</h1>
+                <p class="mb-0">Expertos y especialistas en equipos biomédicos</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card border-warning h-100">
+                        <div class="card-header bg-warning">
+                            <h5 class="mb-0"><i class="bi bi-award me-2"></i>BMET III</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="small">Técnico altamente experimentado</p>
+                            <div class="alert alert-warning small mb-2">
+                                <strong>CBET:</strong> Certified Biomedical Equipment Technician
+                            </div>
+                            <ul class="small">
+                                <li>Trabajos complejos</li>
+                                <li>Conocimiento integral</li>
+                                <li>Experto en procedimientos</li>
+                                <li>~12 años experiencia</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card border-info h-100">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0"><i class="bi bi-hospital me-2"></i>LES</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="small"><strong>Laboratory Equipment Specialist</strong></p>
+                            <p class="small">Especialista en equipos de laboratorio</p>
+                            <ul class="small">
+                                <li>Formación especializada</li>
+                                <li>Certificación CLES</li>
+                                <li>Capacitación del fabricante</li>
+                                <li>Equipos altamente sofisticados</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card border-primary h-100">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="bi bi-radioactive me-2"></i>RES</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="small"><strong>Radiology Equipment Specialist</strong></p>
+                            <p class="small">Especialista en equipos de radiología</p>
+                            <ul class="small">
+                                <li>Especialización en imagenología</li>
+                                <li>Certificación CRES</li>
+                                <li>Equipos de alta precisión</li>
+                                <li>Rayos X, MRI, CT</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Liderazgo -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1><i class="bi bi-people-fill me-3"></i>Posiciones de Liderazgo</h1>
+                <p class="mb-0">Roles de supervisión y gestión</p>
+            </div>
+            
+            <div class="accordion" id="leadershipAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#supervisor">
+                            <i class="bi bi-person-badge me-2"></i>
+                            <strong>BMET Supervisor</strong>
+                        </button>
+                    </h2>
+                    <div id="supervisor" class="accordion-collapse collapse show" data-bs-parent="#leadershipAccordion">
+                        <div class="accordion-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="text-primary">Requisitos:</h6>
+                                    <ul>
+                                        <li>Título BS (4 años)+</li>
+                                        <li>~13 años experiencia</li>
+                                        <li>Conocimiento integral</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-success">Responsabilidades:</h6>
+                                    <ul>
+                                        <li>Supervisión de técnicos</li>
+                                        <li>Asignación de tareas</li>
+                                        <li>Reparaciones calificadas</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#engineer">
+                            <i class="bi bi-mortarboard-fill me-2"></i>
+                            <strong>Clinical Engineer (CE)</strong>
+                        </button>
+                    </h2>
+                    <div id="engineer" class="accordion-collapse collapse" data-bs-parent="#leadershipAccordion">
+                        <div class="accordion-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="text-primary">Requisitos:</h6>
+                                    <ul>
+                                        <li>Título BS/MS/PhD</li>
+                                        <li>Certificación CE</li>
+                                        <li>Formación en ingeniería</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-success">Responsabilidades:</h6>
+                                    <ul>
+                                        <li>Ingeniería de dispositivos</li>
+                                        <li>Modificación de equipos</li>
+                                        <li>Análisis de sistemas</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#director">
+                            <i class="bi bi-building me-2"></i>
+                            <strong>Director/Department Manager</strong>
+                        </button>
+                    </h2>
+                    <div id="director" class="accordion-collapse collapse" data-bs-parent="#leadershipAccordion">
+                        <div class="accordion-body">
+                            <p>Profesional con formación técnica o administrativa</p>
+                            <h6 class="text-primary">Responsabilidades:</h6>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge-custom">Gestión departamental</span>
+                                <span class="badge-custom">Supervisión</span>
+                                <span class="badge-custom">Presupuesto</span>
+                                <span class="badge-custom">Planificación</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Conclusión -->
+        <div class="slide">
+            <div class="splash-screen">
+                <i class="bi bi-check-circle-fill" style="font-size: 7rem; color: #11998e;"></i>
+                <h1 class="display-3 fw-bold mt-4 mb-4">¡Profesionales Esenciales!</h1>
+                <p class="lead fs-3 text-secondary mb-5">
+                    Los Técnicos Biomédicos son la columna vertebral de la<br>tecnología médica moderna
+                </p>
+                
+                <div class="row mt-5">
+                    <div class="col-md-3 mb-3">
+                        <div class="card border-0 shadow h-100">
+                            <div class="card-body text-center">
+                                <i class="bi bi-lightbulb-fill" style="font-size: 3rem; color: #667eea;"></i>
+                                <h5 class="mt-3">Conocimiento</h5>
+                                <p class="text-muted small">Formación técnica especializada</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card border-0 shadow h-100">
+                            <div class="card-body text-center">
+                                <i class="bi bi-tools" style="font-size: 3rem; color: #11998e;"></i>
+                                <h5 class="mt-3">Habilidad</h5>
+                                <p class="text-muted small">Experiencia práctica</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card border-0 shadow h-100">
+                            <div class="card-body text-center">
+                                <i class="bi bi-people-fill" style="font-size: 3rem; color: #4facfe;"></i>
+                                <h5 class="mt-3">Colaboración</h5>
+                                <p class="text-muted small">Trabajo en equipo</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card border-0 shadow h-100">
+                            <div class="card-body text-center">
+                                <i class="bi bi-heart-pulse" style="font-size: 3rem; color: #fa709a;"></i>
+                                <h5 class="mt-3">Impacto</h5>
+                                <p class="text-muted small">Salvando vidas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-5">
+                    <h4 class="text-primary">Una carrera con propósito y futuro</h4>
+                    <div class="mt-3">
+                        <span class="badge bg-info me-2">Tecnología médica</span>
+                        <span class="badge bg-primary me-2">Seguridad del paciente</span>
+                        <span class="badge bg-success me-2">Crecimiento profesional</span>
+                        <span class="badge bg-warning me-2">Impacto social</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navegación -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <span class="text-muted">
+            Slide <span id="navCurrent">1</span>/<span id="navTotal">10</span>
+        </span>
+        <button class="nav-btn" id="nextBtn">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Variables globales
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        // Elementos del DOM
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const currentSlideSpan = document.getElementById('currentSlide');
+        const navCurrent = document.getElementById('navCurrent');
+        const progressBar = document.getElementById('progressBar');
+        
+        // Función para actualizar slides
+        function updateSlides() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+            
+            // Actualizar contador
+            currentSlideSpan.textContent = currentSlide + 1;
+            navCurrent.textContent = currentSlide + 1;
+            
+            // Actualizar botones
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+            
+            // Actualizar barra de progreso
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = progress + '%';
+        }
+        
+        // Navegación
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlides();
+            }
+        }
+        
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlides();
+            }
+        }
+        
+        // Event listeners
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        
+        // Teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+        
+        // Función para expandir contenido
+        function toggleExpand(button) {
+            const card = button.closest('.card-interactive') || button.closest('.card');
+            const content = card.querySelector('.expandable-content');
+            
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                button.textContent = button.textContent.includes('Detalles') ? 'Detalles' : 'Ver más';
+            } else {
+                content.classList.add('show');
+                button.textContent = 'Ver menos';
+            }
+        }
+        
+        // Inicializar
+        document.getElementById('totalSlides').textContent = totalSlides;
+        document.getElementById('navTotal').textContent = totalSlides;
+        updateSlides();
+    </script>
+</body>
+</html>
